@@ -1,6 +1,6 @@
 import random
 
-from board import new_board, display_board
+from board import new_board, curr_board
 
 def instructions():
     print(" 2040 ".center(130, "~"))
@@ -70,7 +70,7 @@ def main():
     if flag:
         add_new_tile(board)
         add_new_tile(board)
-        display_board(board)
+        curr_board(board)
         flag = False
 
 if __name__ == '__main__':

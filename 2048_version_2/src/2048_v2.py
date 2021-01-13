@@ -1,7 +1,7 @@
-# import random
 import numpy as np
+from numpy.random import choice, randint
 
-from board import new_board, curr_board
+from board import new_board, add_two_or_four_tile, display_board
 
 def instructions():
     print(" 2040 ".center(130, "~"))
@@ -15,31 +15,25 @@ INSTRUCTIONS:
 'A': Left 
 'D': Right\n""")
 
-def two_or_four():
-    """Returns a list of a single number 2 (90% chance) or 4 (10% chance) randomly."""
-    two_or_four = np.random.choice([2, 4], 1, replace=False, p=[.9, .1])
+def shift_board_left(board):
+    """Shifts all non-zero tiles tom m the left."""
+    for row in range(len(board)):
+        board[row] = np.concatenate((board[row][board[row] != 0], board[row][board[row] == 0]))
 
-    return two_or_four
-
-def add_new_tile(board):
-    """Adds a new tile"""
-    new_tile_val = two_or_four()
-    row = np.random.randint(0, 3)
-    col = np.random.randint(0, 3)
-
-    while board[row][col] != 0:
-        row = np.random.randint(0, 4)
-        col = np.random.randint(0, 4)
-    board[row][col] = new_tile_val
+def merge__like_tiles_left(board):
+    """Merge tiles of the same value on the after a left shift."""
+    for row in range(len(board)):
+        for col in range(len(board[row])-1):
+            if (board[row][col] != 0) and (board[row][col] == board[row][col+1]):
+                board[row][col] = board[row][col] + board[row][col+1]
+                board[row][col+1] = 0
 
 def main():
     instructions()
     flag = True # If start of game
     board = new_board()
     if flag:
-        add_new_tile(board)
-        add_new_tile(board)
-        curr_board(board)
+        display_board(board)
         flag = False
 
 if __name__ == '__main__':

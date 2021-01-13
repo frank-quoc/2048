@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import MagicMock
 
 import numpy as np
+from numpy.random import choice, seed, randint
 
 mock_object = MagicMock()
 mock_object(np.zeros((4, 4), dtype=int))
@@ -31,40 +32,67 @@ class TestReturn2Or4:
         assert four == 4
 
     def test_two_or_four_seed_2(self):
-        """Adds 2 (90% chance) or 4 (10% chance) to a random open tile."""
-        np.random.seed(0)
-        two_or_four = np.random.choice([2, 4], 1, replace=False, p=[.9, .10])
+        """Test to check if 2 is one of the random values set for variable two_or_four."""
+        seed(0)
+        two_or_four = choice([2, 4], 1, replace=False, p=[.9, .10])
         assert two_or_four == 2
     
     def test_two_or_four_seed_4(self):
-        """Adds 2 (90% chance) or 4 (10% chance) to a random open tile."""
-        np.random.seed(4)
-        two_or_four = np.random.choice([2, 4], 1, replace=False, p=[.9, .1])
+        """Test to check if 4 is one of the random values set for variable two_or_four."""
+        seed(4)
+        two_or_four = choice([2, 4], 1, replace=False, p=[.9, .1])
         assert two_or_four == 4
             
-    def test_add_new_tile(self):
-        """Adds a new tile"""
-        np.random.seed(0)
+    def test_add_two_or_four_tile(self):
+        """Test to add a new tile (2 or 4) to the 4 x 4 matrix."""
+        seed(0)
         board = np.zeros((4, 4), dtype=int)
-        two_or_four = np.random.choice([2, 4], 1, replace=False, p=[.9, .1])
+        two_or_four = choice([2, 4], 1, replace=False, p=[.9, .1])
         expected = np.array([[0, 0, 0, 0],
-                             [2, 0, 0, 0],
+                             [0, 2, 0, 0],
                              [0, 0, 0, 0],
                              [0, 0, 0, 0]])
 
-        row = np.random.randint(0, 3)
-        col = np.random.randint(0, 3)
-        while board[row][col] != 0:
-            row = np.random.randint(0, 4)
-            col = np.random.randint(0, 4)
-        board[row][col] = two_or_four
+        find_zero_tiles = np.where(board == 0) 
+        zero_indices = [(row, col) for row, col in zip(find_zero_tiles[0], find_zero_tiles[1])]
+        random_zero_tile = zero_indices[choice(len(zero_indices), 1)[0]]
+        board[random_zero_tile] = two_or_four
 
         np.testing.assert_array_equal(board, expected)
         
-    # def test_display_a_new_board(self):
-    #     """Displays a new 4 x 4 board with 2 tiles with either a 2 (90% chance) or 4 (10%)."""
-    #     board = np.random.choice(0, (4, 4), )
+    def test_shift_board_left(self):
+        """Test to shift a 4 x 4 array to the left."""
+        pre_shift = np.array([[0, 2, 0, 2],
+                              [2, 0, 4, 2],
+                              [0, 0, 0, 0],
+                              [0, 0, 0, 4]])
+        expected = np.array([[2, 2, 0, 0],
+                             [2, 4, 2, 0],
+                             [0, 0, 0, 0],
+                             [4, 0, 0, 0]])
 
+        for row in range(len(pre_shift)):
+            pre_shift[row] = np.concatenate((pre_shift[row][pre_shift[row] != 0], \
+                pre_shift[row][pre_shift[row] == 0]))
+        
+        np.testing.assert_array_equal(pre_shift, expected)
+
+    def test_merge_consecutive_like_values_left(self):
+        """Test to merge tiles of the same value on the after a left shift."""
+        pre_merge = np.array([[2, 2, 0, 0],
+                              [2, 2, 2, 0],
+                              [0, 0, 0, 0],
+                              [4, 4, 0, 0]])
+        expected = np.array([[4, 0, 0, 0],
+                             [4, 0, 2, 0],
+                             [0, 0, 0, 0],
+                             [8, 0, 0, 0]])
+        for row in range(len(pre_merge)):
+            for col in range(len(pre_merge[row])-1):
+                if (pre_merge[row][col] != 0) and (pre_merge[row][col] == pre_merge[row][col+1]):
+                    pre_merge[row][col] = pre_merge[row][col] + pre_merge[row][col+1]
+                    pre_merge[row][col+1] = 0
+        np.testing.assert_array_equal(pre_merge, expected)
         
 if __name__ == '__main__':
     pytest.main()

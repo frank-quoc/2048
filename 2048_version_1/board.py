@@ -11,5 +11,3 @@ def curr_board(board):
     """Prints the current board with the current tiles."""
     print(board)
     print()
-
-print(random.choices([2, 4], weights=(90, 10), k=1))

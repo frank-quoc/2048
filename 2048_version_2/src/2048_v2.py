@@ -20,7 +20,7 @@ def shift_board_left(board):
     for row in range(len(board)):
         board[row] = np.concatenate((board[row][board[row] != 0], board[row][board[row] == 0]))
 
-def merge__like_tiles_left(board):
+def merge_like_tiles_left(board):
     """Merge tiles of the same value on the after a left shift."""
     for row in range(len(board)):
         for col in range(len(board[row])-1):

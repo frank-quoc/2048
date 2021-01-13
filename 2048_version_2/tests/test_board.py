@@ -4,9 +4,6 @@ from unittest.mock import MagicMock
 import numpy as np
 from numpy.random import choice, seed, randint
 
-mock_object = MagicMock()
-mock_object(np.zeros((4, 4), dtype=int))
-
 def test_show_assert_true():
     assert True
 
@@ -93,6 +90,7 @@ class TestReturn2Or4:
                     pre_merge[row][col] = pre_merge[row][col] + pre_merge[row][col+1]
                     pre_merge[row][col+1] = 0
         np.testing.assert_array_equal(pre_merge, expected)
-        
+    
+
 if __name__ == '__main__':
     pytest.main()

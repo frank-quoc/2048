@@ -74,6 +74,11 @@ class TestReturn2Or4:
         
         np.testing.assert_array_equal(pre_shift, expected)
 
+    def shift_board_left(self, board):
+        """Shifts all non-zero tiles tom m the left."""
+        for row in range(len(board)):
+            board[row] = np.concatenate((board[row][board[row] != 0], board[row][board[row] == 0]))
+
     def test_merge_consecutive_like_values_left(self):
         """Test to merge tiles of the same value on the after a left shift."""
         pre_merge = np.array([[2, 2, 0, 0],
@@ -81,7 +86,7 @@ class TestReturn2Or4:
                               [0, 0, 0, 0],
                               [4, 4, 0, 0]])
         expected = np.array([[4, 0, 0, 0],
-                             [4, 0, 2, 0],
+                             [4, 2, 0, 0],
                              [0, 0, 0, 0],
                              [8, 0, 0, 0]])
         for row in range(len(pre_merge)):
@@ -89,6 +94,7 @@ class TestReturn2Or4:
                 if (pre_merge[row][col] != 0) and (pre_merge[row][col] == pre_merge[row][col+1]):
                     pre_merge[row][col] = pre_merge[row][col] + pre_merge[row][col+1]
                     pre_merge[row][col+1] = 0
+        self.shift_board_left(pre_merge)
         np.testing.assert_array_equal(pre_merge, expected)
     
 

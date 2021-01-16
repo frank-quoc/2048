@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 import numpy as np
 from numpy.random import choice, seed, randint
+from numpy.testing import assert_array_equal
 
 def test_show_assert_true():
     assert True
@@ -17,7 +18,7 @@ class TestDisplayBoard:
                                   [0, 0, 0, 0],
                                   [0, 0, 0, 0],
                                   [0, 0, 0, 0]])
-        np.testing.assert_array_equal(board, expected)
+        assert_array_equal(board, expected)
 
 class TestReturn2Or4:
     """Class with tests to return 2 or 4."""
@@ -58,8 +59,7 @@ class TestReturn2Or4:
         zero_indices = [(row, col) for row, col in zip(find_zero_tiles[0], find_zero_tiles[1])]
         random_zero_tile = zero_indices[choice(len(zero_indices), 1)[0]]
         board[random_zero_tile] = two_or_four
-
-        np.testing.assert_array_equal(board, expected)
+        assert_array_equal(board, expected)
 
 class TestMatrixMovements:
     """Class to test the movement movements of matrixes left, right, up, down, and merge."""
@@ -78,14 +78,12 @@ class TestMatrixMovements:
         for row in range(len(matrix)):
             matrix[row] = np.concatenate((matrix[row][matrix[row] != 0], \
                 matrix[row][matrix[row] == 0]))
-        
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
 
     def shift_board_left(self, board):
         """Shifts all non-zero tiles tom m the left."""
         for row in range(len(board)):
             board[row] = np.concatenate((board[row][board[row] != 0], board[row][board[row] == 0]))
-        
         return board
 
     def test_matrx_merge_consecutive_like_values_left(self):
@@ -103,24 +101,21 @@ class TestMatrixMovements:
                 if (matrix[row][col] != 0) and (matrix[row][col] == matrix[row][col+1]):
                     matrix[row][col] = matrix[row][col] + matrix[row][col+1]
                     matrix[row][col+1] = 0
-
         self.shift_board_left(matrix)
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
     
     def test_reflect_matrix(self):
         """Test to reflect the a matrix."""
         matrix = np.array([[0, 0, 2, 2],
-                                [0, 2, 2, 2],
-                                [0, 0, 0, 0],
-                                [0, 0, 4, 4]])
+                           [0, 2, 2, 2],
+                           [0, 0, 0, 0],
+                           [0, 0, 4, 4]])
         expected = np.array([[2, 2, 0, 0],
                              [2, 2, 2, 0],
                              [0, 0, 0, 0],
                              [4, 4, 0, 0]]) 
         matrix = np.flip(matrix, axis=1)    
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
 
     def merge_like_tiles_left(self, board):
         """Merge tiles of the same value on the after a left shift."""
@@ -130,14 +125,13 @@ class TestMatrixMovements:
                     board[row][col] = board[row][col] + board[row][col+1]
                     board[row][col+1] = 0
         self.shift_board_left(board)
-
         return board
     
     def test_reflect_matrix_merge_reflect_again(self):
         """Test to reflects the board, then merges like tiles, and then reflects again."""
         matrix = np.array([[0, 0, 2, 2],
-                                [0, 2, 2, 2],
-                                [0, 0, 0, 0],
+                            [0, 2, 2, 2],
+                            [0, 0, 0, 0],
                                 [0, 0, 4, 4]])
         expected = np.array([[0, 0, 0, 4],
                              [0, 0, 2, 4],
@@ -147,8 +141,7 @@ class TestMatrixMovements:
         self.shift_board_left(matrix)
         self.merge_like_tiles_left(matrix)
         matrix = np.fliplr(matrix)  
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
     
     def test_rotate_matrix_90_left(self):
         """Test to rotate the matrix 90 degrees left"""
@@ -161,8 +154,7 @@ class TestMatrixMovements:
                              [0, 2, 0, 0],
                              [0, 0, 0, 0]])
         matrix = np.rot90(matrix)
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
 
     def test_rotate_matrix_90_left_merge_shift_rotate_back(self):
         """Test to rotate the matrix 90 deg left, merge, shift non-zero elements, and rotate back."""
@@ -178,8 +170,7 @@ class TestMatrixMovements:
         self.shift_board_left(matrix)
         self.merge_like_tiles_left(matrix)
         matrix = np.rot90(matrix, k=-1)
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
     
     def test_rotate_matrix_90_right(self):
         """Test to rotate the matrix 90 degrees right"""
@@ -192,8 +183,7 @@ class TestMatrixMovements:
                              [4, 0, 2, 2],
                              [4, 0, 2, 2]])
         matrix = np.rot90(matrix, k=-1)
-
-        np.testing.assert_array_equal(matrix, expected)
+        assert_array_equal(matrix, expected)
 
     def test_rotate_matrix_90_right_merge_shift_rotate_back(self):
         """Test to rotate the matrix 90 degrees right"""
@@ -209,9 +199,21 @@ class TestMatrixMovements:
         self.shift_board_left(matrix)
         self.merge_like_tiles_left(matrix)
         matrix = np.rot90(matrix)
+        assert_array_equal(matrix, expected)
 
-        np.testing.assert_array_equal(matrix, expected)
+    def test_find_2048_element(self):
+        """Test to see if 2048 is one of the values in a matrix array."""
+        matrix = np.array([[0, 0, 2, 2],
+                           [0, 2, 2, 2],
+                           [0, 0, 0, 0],
+                           [2048, 0, 4, 4]])
+        assert 2048 in matrix
 
-           
+    def check_no_indices_with_zero():
+        """Test for number of elements in array with no 0 values."""
+        matrix = np.arange(16).reshape(4,4)
+        zero_indices = len(np.where(matrix == 0)[0])
+        assert zero_indices == 0
+       
 if __name__ == '__main__':
     pytest.main()

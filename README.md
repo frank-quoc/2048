@@ -19,7 +19,7 @@
 
 A command line 2048 game to practice programming skills, specificaly newly learned skills in the NumPy library and using Test Driven Development techniques with PyTest.
 
-![2048: Testing Code](/images/2048_testing_code)
+![2048: Testing Code](/images/2048_testing_code.png)
 
 ## Getting Started
 
@@ -66,9 +66,9 @@ Three consecutive tiles will only have the two of the farthest direction merge.
 Your score goes up by the value of the tiles that merge. Enjoy!!!
 ```
 
-![2048: Start](/images/2048_start_game)
+![2048: Start](/images/2048_start_game.png)
 
-![2048: Lose](/images/2048_lose_cond)
+![2048: Lose](/images/2048_lose_cond.png)
 
 ## File Descriptions
 - **images**: Gameplay Images

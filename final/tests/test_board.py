@@ -67,17 +67,16 @@ class TestMatrixMovements:
     def test_shift_matrix_left(self):
         """Test to shift all non-zero elements to the left, and zero elements to the right"""
         matrix = np.array([[0, 2, 0, 2],
-                              [2, 0, 4, 2],
-                              [0, 0, 0, 0],
-                              [0, 0, 0, 4]])
+                           [2, 0, 4, 2],
+                           [0, 0, 0, 0],
+                           [0, 0, 0, 4]])
         expected = np.array([[2, 2, 0, 0],
                              [2, 4, 2, 0],
                              [0, 0, 0, 0],
                              [4, 0, 0, 0]])
 
         for row in range(len(matrix)):
-            matrix[row] = np.concatenate((matrix[row][matrix[row] != 0], \
-                matrix[row][matrix[row] == 0]))
+            matrix[row] = np.concatenate((matrix[row][matrix[row] != 0], matrix[row][matrix[row] == 0]))
         assert_array_equal(matrix, expected)
 
     def shift_board_left(self, board):

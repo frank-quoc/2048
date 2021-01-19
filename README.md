@@ -70,15 +70,19 @@ Run the game in the Ubuntu Command Line from the  ```~/final/src/``` directory.
 **UP**
 
 To go up, press 'w" and then enter.
+
 ![2048: Up](/images/2048_up.png)
 
 'a' to go left and then enter.
+
 ![2048: Left](/images/2048_left.png)
 
 Press 's'  and then enter to go down.
+
 ![2048: Down](/images/2048_down.png)
 
 'd' and then enter for right.
+
 ![2048: Right](/images/2048_right.png)
 
 ## Testing Examples
@@ -88,8 +92,11 @@ To run tests, simply use the coding editor of your choice. The following directi
 2. Activate the virtual env: ```source venv_2048```
 3. Navigate (```cd```) to ```~/final/tests/``` folder
 4. Run every test: ```pytest test_board.py```
+
 ![2048: Testing 1](/images/2048_pytest_1.png)
+
 5. Or, run individual test by typing in the specific test module or test class in "" after -k. Example: ```pytest test_board.py -k "test_shift_matrix_left"```
+
 ![2048: Testing 2](/images/2048_pytest_2.png)
 
 ## File Descriptions

@@ -1,5 +1,7 @@
 # 2048
 
+[2048 Tweet](https://twitter.com/culyTech/status/1351367472583041026?s=20)
+
 <p align="center">
   <img src="/images/2048_start_game.png" alt="2048 Banner"/>
 </p>

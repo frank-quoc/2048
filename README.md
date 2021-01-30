@@ -122,4 +122,4 @@ Frank Ho - [@cuLyTech](https://twitter.com/culyTech)
 Project Link: [https://github.com/frank-quoc/2048](https://github.com/frank-quoc/2048)
 
 ## Acknowledgements
-[2048 python numpy](https://medium.com/byte-tales/the-classic-tic-tac-toe-game-in-python-3-1427c68b8874) by @github.com/wbars
+[2048 python numpy](https://gist.github.com/wbars/88df9704306629c40c7929e691b48b98) by @github.com/wbars

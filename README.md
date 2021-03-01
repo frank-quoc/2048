@@ -14,9 +14,9 @@
     * [Installation](README.md#installation)
 3. [Game Rules](README.md#game-rules)
 4. [Testing Examples](README.md#testing-examples)
-4. [File Descriptions](README.md#file-descriptions)
-5. [Contact](README.md#contact)
-6. [Acknowledgements](README.md#contact)
+5. [File Descriptions](README.md#file-descriptions)
+6. [Contact](README.md#contact)
+7. [Acknowledgements](README.md#contact)
 
 ## About the Project
 
@@ -51,10 +51,6 @@ Install required libraries from ```requirement.txt```
   * PyTest 6.2.1
   
 ```pip3 install -r requirements.txt```
-  
-Check what modules are installed
-  
-```pip freeze > requirements.txt```
 
 Run the game in the Ubuntu Command Line from the  ```~/final/src/``` directory.
 

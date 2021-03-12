@@ -1,5 +1,4 @@
 import pytest
-from unittest.mock import MagicMock
 
 import numpy as np
 from numpy.random import choice, seed, randint

@@ -16,7 +16,7 @@
 4. [Testing Examples](README.md#testing-examples)
 5. [File Descriptions](README.md#file-descriptions)
 6. [Contact](README.md#contact)
-7. [Acknowledgements](README.md#contact)
+7. [Acknowledgements](README.md#acknowledgements)
 
 ## About the Project
 
